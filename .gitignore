@@ -1,0 +1,5 @@
+server/bin/*
+*.ilk
+*.pdb
+server/build/*
+server/lib/*
