@@ -3,3 +3,5 @@ server/bin/*
 *.pdb
 server/build/*
 server/lib/*
+client/build/*
+*.exe
