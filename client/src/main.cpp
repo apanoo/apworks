@@ -1,5 +1,3 @@
-// glew only
-#define GLEW_NO_GLU
 
 // windows header file
 #if _WIN32 
@@ -8,13 +6,13 @@
 
 #include <stdio.h>
 
+// OpenGL
+#include <GL/glew.h>
 // SDL
 #include <SDL.h>
 
-// OpenGL
-#include <GL/glew.h>
 
-int main(int argc, char** argv)
+int main()
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 	printf("hello\n");
