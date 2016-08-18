@@ -6,5 +6,5 @@ server/lib/*
 client/build/*
 *.exe
 *.exp
-bin/*
-lib/*
+client/bin/*
+client/lib/*
