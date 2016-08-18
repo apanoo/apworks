@@ -1,21 +1,17 @@
-
-// windows header file
-#if _WIN32 
-    #include <windows.h>
-#endif
-
-#include <stdio.h>
+#include <iostream>
 
 // OpenGL
 #include <GL/glew.h>
-// SDL
-#include <SDL.h>
 
+#include "MainGame.h"
 
-int main()
+int main(int argc, char** argv)
 {
-    SDL_Init(SDL_INIT_EVERYTHING);
-	printf("hello\n");
-	getchar();
+	MainGame mainGame;
+	mainGame.run();
+
+	std::cout << "Enter any key to quit" << std::endl;
+	int a;
+	std::cin >> a;
     return 0;
 }
