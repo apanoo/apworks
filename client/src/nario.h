@@ -1,4 +1,5 @@
 #include "math/Maths.h"
+#include "graphics/Window.h"
 #include "graphics/MainGame.h"
 
 ///** Export function
