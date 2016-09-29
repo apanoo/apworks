@@ -1,6 +1,7 @@
 #include "math/Maths.h"
 #include "graphics/Window.h"
-#include "graphics/MainGame.h"
+#include "graphics/Shader.h"
+#include "utils/FileUtils.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

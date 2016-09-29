@@ -10,6 +10,8 @@ namespace nario {
 		void clear() const;
 		bool closed();
 		void update();
+		inline int getWidth() const { return _width; }
+		inline int getHeight() const { return _height; }
 
 	private:
 		bool init();

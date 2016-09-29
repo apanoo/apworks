@@ -1,7 +1,6 @@
 #include "window.h"
-#include <GL/glew.h>
-#include <SDL.h>
-#include "../log/Log.h"
+#include "utils/StdAfx.h"
+#include "log/Log.h"
 
 #define ErrExit(str) { \
 	log::err(str);     \
@@ -42,6 +41,10 @@ bool nario::Window::closed()
 void nario::Window::update()
 {
 	SDL_GL_SwapWindow(_window); // double swap
+
+	/*SDL_GetWindowSize(_window, &_width, &_height);  // TODO : opt
+	glViewport(0, 0, _width, _height);*/
+
 	eventHandler();
 }
 
@@ -50,7 +53,7 @@ bool nario::Window::init()
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	_window = SDL_CreateWindow("Game Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		_width, _height, SDL_WINDOW_OPENGL);
+		_width, _height, SDL_WINDOW_OPENGL /*| SDL_WINDOW_RESIZABLE*/);
 	if (_window == nullptr)
 	{
 		ErrExit("SDL window could not be created!");
@@ -65,12 +68,16 @@ bool nario::Window::init()
 		return false;
 	}
 
-	// init glew 
+	// init glew after make context
 	GLenum error = glewInit();
 	if (error != GLEW_OK)
 	{
 		ErrExit("Glew init failed!");
 		return false;
+	}
+	else
+	{
+		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
 	}
 
 	// double buffer 
