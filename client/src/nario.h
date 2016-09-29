@@ -5,6 +5,9 @@
 #include "log/Log.h"
 #include "graphics/buffer/VertexArray.h"
 #include "graphics/buffer/IndexBuffer.h"
+#include "graphics/2d/Renderer2d.h"
+#include "graphics/2d/Renderable2d.h"
+#include "graphics/2d/SimpleRenderer2d.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):
