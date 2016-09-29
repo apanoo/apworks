@@ -2,6 +2,9 @@
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
 #include "utils/FileUtils.h"
+#include "log/Log.h"
+#include "graphics/buffer/VertexArray.h"
+#include "graphics/buffer/IndexBuffer.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

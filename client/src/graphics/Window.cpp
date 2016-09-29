@@ -14,7 +14,7 @@
 }
 
 nario::Window::Window(const char* name, int width, int height)
-	:_name(name), _width(width), _height(height), _close(false)
+	:_name(name), _width(width), _height(height), _close(false), _mx(0), _my(0)
 {
 	if (!init())
 	{
@@ -44,6 +44,12 @@ void nario::Window::update()
 
 	/*SDL_GetWindowSize(_window, &_width, &_height);  // TODO : opt
 	glViewport(0, 0, _width, _height);*/
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		log::err("OpenGL Error: %d" , error);
+	}
 
 	eventHandler();
 }
@@ -100,8 +106,8 @@ void nario::Window::eventHandler()
 			NormalExit();
 			break;
 		case SDL_MOUSEMOTION:
-			auto mousx = event.motion.x;
-			auto mousy = event.motion.y;
+			_mx = event.motion.x;
+			_my = event.motion.y;
 			break;
 		}
 	}
