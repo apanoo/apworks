@@ -7,6 +7,13 @@
 #include "math/Maths.h"
 
 namespace nario {
+
+	struct VertexData
+	{
+		Vector3 vertices;
+		Vector4 color;
+	};
+
 	class Renderable2d
 	{
 	public:

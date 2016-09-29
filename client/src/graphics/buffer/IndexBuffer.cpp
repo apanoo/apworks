@@ -2,7 +2,7 @@
 
 nario::IndexBuffer::~IndexBuffer()
 {
-
+	glDeleteBuffers(1, &_bufferId);
 }
 
 void nario::IndexBuffer::bind() const

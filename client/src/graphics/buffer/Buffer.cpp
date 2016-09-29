@@ -2,7 +2,7 @@
 
 nario::Buffer::~Buffer()
 {
-
+	glDeleteBuffers(1, &_bufferId);
 }
 
 void nario::Buffer::bind() const

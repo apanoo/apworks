@@ -7,6 +7,7 @@ nario::VertexArray::~VertexArray()
 	{
 		delete _buffers[i];
 	}
+	glDeleteVertexArrays(1, &_arrayId);
 }
 
 void nario::VertexArray::addBuffer(Buffer* buffer, GLuint index)
