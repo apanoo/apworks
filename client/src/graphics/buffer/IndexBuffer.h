@@ -5,6 +5,7 @@ namespace nario {
 	class IndexBuffer
 	{
 	public:
+		explicit IndexBuffer(GLuint* data, GLsizei count);
 		explicit IndexBuffer(GLushort* data, GLuint count);
 		~IndexBuffer();
 

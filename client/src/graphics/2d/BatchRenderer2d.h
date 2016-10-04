@@ -1,14 +1,17 @@
 #pragma once
 #include "Renderer2d.h"
-#include "graphics/buffer/VertexArray.h"
+#include "graphics/buffer/IndexBuffer.h"
 
 namespace nario {
 
-#define RENDERER_MAX_SPRITES 10000
-#define RENDERER_VERTEX_SIZE sizeof(VertexData)
-#define RENDERER_SPRITE_SIZE RENDERER_VERTEX_SIZE * 4
+#define RENDERER_MAX_SPRITES 60000
+#define RENDERER_VERTEX_SIZE sizeof(VertexData)								// 每个顶点包含的字节数
+#define RENDERER_SPRITE_SIZE RENDERER_VERTEX_SIZE * 4						// sprite对应4个顶点
 #define RENDERER_BUFFER_SIZE RENDERER_SPRITE_SIZE * RENDERER_MAX_SPRITES
 #define RENDERER_INDICES_SIZE RENDERER_MAX_SPRITES * 6
+
+#define SHADER_VERTEX_INDEX 0
+#define SHADER_COLOR_INDEX 1
 
 	class BatchRenderer2d : public Renderer2d
 	{
@@ -16,14 +19,19 @@ namespace nario {
 		BatchRenderer2d();
 		~BatchRenderer2d();
 
+		void begin();
 		void submit(Renderable2d* renderable) override;
+		void end();
+
 		void flush() override;
 	private:
 		void init();
 	private:
-		VertexArray _VAO;
+		GLuint _VAO;
+		GLuint _VBO;
 		IndexBuffer* _IBO;
 		GLsizei _indexCount;
-		GLuint _VBO;
+
+		VertexData* _buffer;
 	};
 }

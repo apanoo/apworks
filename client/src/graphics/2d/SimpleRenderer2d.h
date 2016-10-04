@@ -1,6 +1,7 @@
 #pragma once
 #include <deque>
 #include "Renderer2d.h"
+#include "StaticSprite.h"
 
 namespace nario {
 	class SimpleRenderer2d : public Renderer2d
@@ -10,6 +11,6 @@ namespace nario {
 		void flush() override;
 
 	private:
-		std::deque<Renderable2d*> _renderQueue;
+		std::deque<StaticSprite*> _renderQueue;
 	};
 }

@@ -1,3 +1,4 @@
+#include <gl/glew.h>
 #include "math/Maths.h"
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
@@ -8,6 +9,9 @@
 #include "graphics/2d/Renderer2d.h"
 #include "graphics/2d/Renderable2d.h"
 #include "graphics/2d/SimpleRenderer2d.h"
+#include "graphics/2d/StaticSprite.h"
+#include "graphics/2d/Sprite.h"
+#include "graphics/2d/BatchRenderer2d.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

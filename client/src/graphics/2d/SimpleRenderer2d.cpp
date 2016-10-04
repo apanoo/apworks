@@ -2,14 +2,14 @@
 
 void nario::SimpleRenderer2d::submit(Renderable2d* renderable)
 {
-	_renderQueue.push_back(renderable);
+	_renderQueue.push_back((StaticSprite*)renderable);
 }
 
 void nario::SimpleRenderer2d::flush()
 {
 	while (!_renderQueue.empty())
 	{
-		Renderable2d* renderable = _renderQueue.front();
+		StaticSprite* renderable = _renderQueue.front();
 		renderable->getVAO()->bind();
 		renderable->getIBO()->bind();
 
