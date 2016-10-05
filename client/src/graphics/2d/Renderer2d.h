@@ -1,7 +1,7 @@
 #pragma once
-#include "utils/StdAfx.h"
-#include "Renderable2d.h"
-#include "math/Maths.h"
+#include "utils/stdafx.h"
+#include "renderable2d.h"
+#include "math/maths.h"
 
 namespace nario {
 	class Renderer2d

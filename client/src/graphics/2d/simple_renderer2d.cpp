@@ -1,4 +1,4 @@
-#include "Simple_Renderer2d.h"
+#include "simple_renderer2d.h"
 
 void nario::SimpleRenderer2d::submit(Renderable2d* renderable)
 {

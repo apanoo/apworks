@@ -1,4 +1,4 @@
-#include "Sprite.h"
+#include "sprite.h"
 
 nario::Sprite::~Sprite()
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer2d.h"
+#include "renderer2d.h"
 #include "graphics/buffer/index_buffer.h"
 
 namespace nario {

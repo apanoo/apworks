@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <windows.h>
-#include "timer/Timer.h"
+#include "timer/time_mgr.h"
 
 namespace nario {
 
@@ -52,7 +52,7 @@ namespace nario {
 			{
 				setColorLight(color);
 			}
-			info("[", Timer::getInstance()->getNow(), "]", ": ", args...);
+			info("[", TimeMgr::getInstance()->getNow(), "]", ": ", args...);
 		}
 
 		// info
