@@ -7,10 +7,10 @@ namespace nario {
 	class SimpleRenderer2d : public Renderer2d
 	{
 	public:
-		void submit(Renderable2d* renderable) override;
+		void submit(const Renderable2d* renderable) override;
 		void flush() override;
 
 	private:
-		std::deque<StaticSprite*> _renderQueue;
+		std::deque<const StaticSprite*> _renderQueue;
 	};
 }

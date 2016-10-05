@@ -13,26 +13,33 @@ void nario::BatchRenderer2d::begin()
 	_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 }
 
-void nario::BatchRenderer2d::submit(Renderable2d* renderable)
+void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 {
 	const Vector3& position = renderable->getPosition();
 	const Vector2& size = renderable->getSize();
 	const Vector4& color = renderable->getColor();
 
+	int r = color.getX() * 255.0f;
+	int g = color.getY() * 255.0f;
+	int b = color.getZ() * 255.0f;
+	int a = color.getW() * 255.0f;
+
+	unsigned int c = a << 24 | b << 16 | g << 8 | r;
+
 	_buffer->vertex = position;
-	_buffer->color = color;
+	_buffer->color = c;
 	_buffer++;
 
 	_buffer->vertex = Vector3(position.getX(), position.getY() + size.getY(), position.getZ());
-	_buffer->color = color;
+	_buffer->color = c;
 	_buffer++;
 
 	_buffer->vertex = Vector3(position.getX() + size.getX(), position.getY() + size.getY(), position.getZ());
-	_buffer->color = color;
+	_buffer->color = c;
 	_buffer++;
 
 	_buffer->vertex = Vector3(position.getX() + size.getX(), position.getY(), position.getZ());
-	_buffer->color = color;
+	_buffer->color = c;
 	_buffer++;
 
 	_indexCount += 6;
@@ -68,7 +75,7 @@ void nario::BatchRenderer2d::init()
 
 	glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
-	glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
 	glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 	glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind buffer

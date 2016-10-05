@@ -6,8 +6,10 @@
 namespace nario {
 	class Renderer2d
 	{
-	protected:
-		virtual void submit(Renderable2d* renderable) = 0;
+	public:
+		virtual void begin() {}
+		virtual void submit(const Renderable2d* renderable) = 0;
+		virtual void end() {}
 		virtual void flush() = 0;
 	};
 }

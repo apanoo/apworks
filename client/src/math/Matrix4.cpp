@@ -3,6 +3,8 @@
 
 namespace nario {
 
+#define M_PI 3.14159265358979323846
+
 	Matrix4::Matrix4(const Quaternion& quaternion)
 	{
 		for (int i = 0; i < 4; i++)
@@ -77,6 +79,35 @@ namespace nario {
 		}
 
 		m[4 - 1][4 - 1] = 1.0f;
+
+		return *this;
+	}
+
+	nario::Matrix4 Matrix4::rotationMatrix(float angle, const Vector3& axis)
+	{
+		*this = identityMatrix();
+		float r = (float)(angle * (M_PI / 180.0f));
+		float c = cos(r);
+		float s = sin(r);
+
+		float omc = 1.0f - c;
+
+		float x = axis.getX();
+		float y = axis.getY();
+		float z = axis.getZ();
+
+		// µÚÒ»ÁÐ
+		m[0][0] = x * omc + c;
+		m[0][1] = y * x * omc + z * s;
+		m[0][2] = x * z * omc - y * s;
+		
+		m[1][0] = x * y * omc - z * s;
+		m[1][1] = y * omc + c;
+		m[1][2] = y * z * omc + x * s;
+		
+		m[2][0] = x * z * omc + y * s;
+		m[2][1] = y * z * omc - x * s;
+		m[2][2] = z * omc + c;
 
 		return *this;
 	}

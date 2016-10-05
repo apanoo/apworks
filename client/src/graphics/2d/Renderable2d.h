@@ -11,7 +11,8 @@ namespace nario {
 	struct VertexData
 	{
 		Vector3 vertex;
-		Vector4 color;
+		//Vector4 color;
+		unsigned int color;
 	};
 
 	class Renderable2d

@@ -67,7 +67,11 @@ namespace nario {
 		static void info(T h) {
 			print(h);
 			std::cout << std::endl;
-			if (_color != fg_default) setColor(fg_default);
+			if (_color != fg_default)
+			{
+				_color = fg_default;
+				setColor(fg_default);
+			}
 		}
 
 		template <typename T>

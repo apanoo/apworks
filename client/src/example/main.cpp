@@ -12,63 +12,52 @@ int main(int argc, char** argv)
 	using namespace nario;
 	Window window("window", 960, 540);
 
+	Shader* shader = new Shader("shaders/basic.vert", "shaders/basic.frag");
+	Shader* shader2 = new Shader("shaders/basic.vert", "shaders/basic.frag");
+	shader->enable();
+	shader->setUniform2f("light_pos", Vector2(0.0f, 0.0f));
 
-	Matrix4 ortho = Matrix4().orthographicMatrix(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
-	Shader shader("shaders/basic.vert", "shaders/basic.frag");
-	shader.enable();
-	shader.setUniformMat4("pr_matrix", ortho);
-	
-	srand(time(NULL));
-	std::vector<Renderable2d*> sprites;
-	for (float y = 0; y < 9.0f;y += 0.05f)
+	shader2->enable();
+	shader2->setUniform2f("light_pos", Vector2(0.0f, 0.0f));
+
+	TileLayer layer(shader);
+	TileLayer layer2(shader2);
+
+	for (float y = -9.0f; y < 9.0f; y += 0.1)
 	{
-		for (float x = 0; x < 16.0f;x += 0.05f)
+		for (float x = -16.0f; x < 16.0f; x += 0.1)
 		{
-			sprites.push_back(new 
-#if BATCH
-				Sprite
-#else 
-				StaticSprite
-#endif
-				(x, y, 0.04f, 0.04f, Vector4(rand() % 1000 / 1000.0f, 0, 1, 1)
-#if !BATCH
-					, shader
-#endif
-
-				));
+			layer.add(new Sprite(x, y, 0.08f, 0.08f, Vector4(rand() % 1000 / 1000.0f, 0, 1, 1.0f)));
 		}
 	}
-#if BATCH
-	BatchRenderer2d renderer;
-#else
-	SimpleRenderer2d renderer;
-#endif
-	
-	shader.setUniform2f("light_pos", Vector2(0.0f, 0.0f));
-	shader.setUniform4f("colour", Vector4(0.2f, 0.3f, 0.8f, 1.0f));
 
+	layer2.add(new Sprite(0, 0, 4, 4, Vector4(1, 0, 1, 1)));
+
+	Timer time; // timer 
+	float t = 0;
+	unsigned int frames = 0;
 	while (!window.closed())
 	{
 		window.clear();
 		int x = window.getMouseX();
 		int y = window.getMouseY(); 
-		shader.setUniform2f("light_pos", Vector2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
-#if BATCH
-		renderer.begin();
-#endif
-		for (unsigned int i = 0; i < sprites.size(); ++i)
-		{
-			renderer.submit(sprites[i]);
-		}
-#if BATCH
-		renderer.end();
-#endif
-		renderer.flush();
+		shader->enable();
+		shader->setUniform2f("light_pos", Vector2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
+		shader2->enable();
+		shader2->setUniform2f("light_pos", Vector2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
 
-		std::cout << sprites.size() << std::endl;
+		layer.render();
+		layer2.render();
+
 		window.update();
+		frames++;
+		if (time.elapsed() - t > 1.0f)
+		{
+			t += 1.0f;
+			aplog::loginfo(frames, " fps");
+			frames = 0;
+		}
 	}
 
-	sprites.clear();
     return 0;
 }

@@ -12,6 +12,9 @@
 #include "graphics/2d/static_sprite.h"
 #include "graphics/2d/sprite.h"
 #include "graphics/2d/batch_renderer2d.h"
+#include "timer/timer.h"
+#include "graphics/2d/layer.h"
+#include "graphics/2d/tile_layer.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

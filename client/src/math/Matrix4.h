@@ -89,6 +89,9 @@ namespace nario {
 		// 平移
 		Matrix4 translationMatrix(const Vector3& r);
 
+		// 旋转
+		Matrix4 rotationMatrix(float angle, const Vector3& axis);
+
 		// 欧拉角旋转 : 会产生万向节死锁
 		Matrix4 rotationEulerMatrix(float rotateX, float rotateY, float rotateZ);
 

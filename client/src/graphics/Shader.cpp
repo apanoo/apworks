@@ -61,7 +61,7 @@ void nario::Shader::setUniformMat4(const GLchar* name, const Matrix4& matrix)
 }
 
 /**
-* gen shader id
+* load shader
 */
 GLuint nario::Shader::load()
 {

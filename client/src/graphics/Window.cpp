@@ -74,6 +74,9 @@ bool nario::Window::init()
 		return false;
 	}
 
+	// 垂直同步开关
+	SDL_GL_SetSwapInterval(0.0);
+
 	// init glew after make context
 	GLenum error = glewInit();
 	if (error != GLEW_OK)

@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include "renderer2d.h"
 #include "graphics/buffer/index_buffer.h"
 
@@ -19,9 +20,9 @@ namespace nario {
 		BatchRenderer2d();
 		~BatchRenderer2d();
 
-		void begin();
-		void submit(Renderable2d* renderable) override;
-		void end();
+		void begin() override;
+		void submit(const Renderable2d* renderable) override;
+		void end() override;
 
 		void flush() override;
 	private:
