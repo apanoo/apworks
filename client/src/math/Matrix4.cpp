@@ -430,4 +430,12 @@ namespace nario {
 		}
 		return stream;
 	}
+	Vector3 Matrix4::operator*(const Vector3& r) const
+	{
+		return Vector3(
+			m[0][0] * r.getX() + m[1][0] * r.getY() + m[2][0] * r.getZ() + m[3][0],
+			m[0][1] * r.getX() + m[1][1] * r.getY() + m[2][1] * r.getZ() + m[3][1],
+			m[0][2] * r.getX() + m[1][2] * r.getY() + m[2][2] * r.getZ() + m[3][2]
+		);
+	}
 }

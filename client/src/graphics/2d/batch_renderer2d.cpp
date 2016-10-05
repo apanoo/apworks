@@ -19,26 +19,26 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 	const Vector2& size = renderable->getSize();
 	const Vector4& color = renderable->getColor();
 
-	int r = color.getX() * 255.0f;
-	int g = color.getY() * 255.0f;
-	int b = color.getZ() * 255.0f;
-	int a = color.getW() * 255.0f;
+	int r = (int)(color.getX() * 255.0f);
+	int g = (int)(color.getY() * 255.0f);
+	int b = (int)(color.getZ() * 255.0f);
+	int a = (int)(color.getW() * 255.0f);
 
 	unsigned int c = a << 24 | b << 16 | g << 8 | r;
-
-	_buffer->vertex = position;
+	auto a1 = *_transformationBack;
+	_buffer->vertex = *_transformationBack * position;
 	_buffer->color = c;
 	_buffer++;
 
-	_buffer->vertex = Vector3(position.getX(), position.getY() + size.getY(), position.getZ());
+	_buffer->vertex = *_transformationBack * Vector3(position.getX(), position.getY() + size.getY(), position.getZ());
 	_buffer->color = c;
 	_buffer++;
 
-	_buffer->vertex = Vector3(position.getX() + size.getX(), position.getY() + size.getY(), position.getZ());
+	_buffer->vertex = *_transformationBack * Vector3(position.getX() + size.getX(), position.getY() + size.getY(), position.getZ());
 	_buffer->color = c;
 	_buffer++;
 
-	_buffer->vertex = Vector3(position.getX() + size.getX(), position.getY(), position.getZ());
+	_buffer->vertex = *_transformationBack * Vector3(position.getX() + size.getX(), position.getY(), position.getZ());
 	_buffer->color = c;
 	_buffer++;
 

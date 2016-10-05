@@ -4,7 +4,7 @@ nario::Layer::~Layer()
 {
 	delete _shader;
 	delete _renderer;
-	for (int i = 0; i < _renderables.size(); ++i)
+	for (unsigned int i = 0; i < _renderables.size(); ++i)
 	{
 		delete _renderables[i];
 	}

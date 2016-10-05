@@ -23,15 +23,20 @@ int main(int argc, char** argv)
 	TileLayer layer(shader);
 	TileLayer layer2(shader2);
 
-	for (float y = -9.0f; y < 9.0f; y += 0.1)
+	for (float y = -9.0f; y < 9.0f; y += 0.1f)
 	{
-		for (float x = -16.0f; x < 16.0f; x += 0.1)
+		for (float x = -16.0f; x < 16.0f; x += 0.1f)
 		{
-			layer.add(new Sprite(x, y, 0.08f, 0.08f, Vector4(rand() % 1000 / 1000.0f, 0, 1, 1.0f)));
+			//layer.add(new Sprite(x, y, 0.08f, 0.08f, Vector4(rand() % 1000 / 1000.0f, 0, 1, 1.0f)));
 		}
 	}
 
-	layer2.add(new Sprite(0, 0, 4, 4, Vector4(1, 0, 1, 1)));
+	Sprite* button = new Sprite(-15.0f, 5.0f, 6, 3, Vector4(1, 1, 1, 1));
+
+	layer.add(button);
+	//layer.push(Matrix4(button->getPosition()));
+	layer.add(new Sprite(0.2f, 0.2f, 5.5f, 2.0f, Vector4(1, 0, 1, 1)));
+	//layer.pop();
 
 	Timer time; // timer 
 	float t = 0;
@@ -43,11 +48,8 @@ int main(int argc, char** argv)
 		int y = window.getMouseY(); 
 		shader->enable();
 		shader->setUniform2f("light_pos", Vector2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
-		shader2->enable();
-		shader2->setUniform2f("light_pos", Vector2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
 
 		layer.render();
-		layer2.render();
 
 		window.update();
 		frames++;

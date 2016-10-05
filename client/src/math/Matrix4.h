@@ -121,6 +121,7 @@ namespace nario {
 		// ²Ù×÷·û
 		Vector4 operator*(const Vector4& r) const;
 		Matrix4 operator*(const Matrix4& r) const;
+		Vector3 operator*(const Vector3& r) const;
 
 		bool operator==(const Matrix4& r) const;
 		bool operator!=(const Matrix4& r) const;
