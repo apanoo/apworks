@@ -1,8 +1,8 @@
 #pragma once
-#include "graphics/buffer/Buffer.h"
-#include "graphics/buffer/IndexBuffer.h"
-#include "graphics/buffer/VertexArray.h"
-#include "graphics/Shader.h"
+#include "graphics/buffer/buffer.h"
+#include "graphics/buffer/index_buffer.h"
+#include "graphics/buffer/vertex_array.h"
+#include "graphics/shader.h"
 
 #include "math/Maths.h"
 

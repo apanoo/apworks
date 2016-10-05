@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/StdAfx.h"
+#include "utils/stdafx.h"
 
 namespace nario {
 	class Buffer

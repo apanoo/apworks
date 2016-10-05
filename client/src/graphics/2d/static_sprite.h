@@ -1,9 +1,9 @@
 #pragma once
-#include "math/Maths.h"
-#include "Renderable2d.h"
-#include "graphics/buffer/VertexArray.h"
-#include "graphics/buffer/IndexBuffer.h"
-#include "graphics/Shader.h"
+#include "math/maths.h"
+#include "renderable2d.h"
+#include "graphics/buffer/vertex_array.h"
+#include "graphics/buffer/index_buffer.h"
+#include "graphics/shader.h"
 
 namespace nario {
 	class StaticSprite : public Renderable2d

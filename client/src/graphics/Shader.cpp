@@ -1,6 +1,6 @@
 #include "shader.h"
-#include "utils/FileUtils.h"
-#include "log/Log.h"
+#include "utils/file_utils.h"
+#include "log/aplog.h"
 #include <vector>
 
 nario::Shader::Shader(const char* vertPath, const char* fragPath)
@@ -93,8 +93,7 @@ GLuint nario::Shader::load()
 		std::vector<char> error(length);
 		// get compile errors
 		glGetShaderInfoLog(vertex, length, &length, &error[0]);
-		log::err("Error to compile vert shader!");
-		log::err(&error[0]);
+		aplog::logerr("Error to compile vert shader!", &error[0]);
 		glDeleteShader(vertex);
 		return 0;
 	}
@@ -110,8 +109,7 @@ GLuint nario::Shader::load()
 		std::vector<char> error(length);
 		// get compile errors
 		glGetShaderInfoLog(fragment, length, &length, &error[0]);
-		log::err("Error to compile frag shader!");
-		log::err(&error[0]);
+		aplog::logerr("Error to compile frag shader!", &error[0]);
 		glDeleteShader(fragment);
 		return 0;
 	}

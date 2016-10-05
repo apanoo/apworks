@@ -1,9 +1,9 @@
 #include "window.h"
-#include "utils/StdAfx.h"
-#include "log/Log.h"
+#include "utils/stdafx.h"
+#include "log/aplog.h"
 
 #define ErrExit(str) { \
-	log::err(str);     \
+	aplog::logerr(str);\
 	_close = true;     \
 	SDL_Quit();        \
 }
@@ -48,7 +48,7 @@ void nario::Window::update()
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
-		log::err("OpenGL Error: %d" , error);
+		aplog::logerr("OpenGL Error: " , error);
 	}
 
 	eventHandler();

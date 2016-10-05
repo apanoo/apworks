@@ -1,7 +1,7 @@
 #pragma once
-#include "utils/StdAfx.h"
+#include "utils/stdafx.h"
 #include <vector>
-#include "Buffer.h"
+#include "buffer.h"
 
 namespace nario {
 	class VertexArray

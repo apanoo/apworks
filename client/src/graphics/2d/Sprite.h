@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderable2d.h"
+#include "renderable2d.h"
 
 namespace nario {
 	class Sprite : public Renderable2d

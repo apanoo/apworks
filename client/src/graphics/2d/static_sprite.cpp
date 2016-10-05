@@ -1,4 +1,4 @@
-#include "StaticSprite.h"
+#include "static_sprite.h"
 
 nario::StaticSprite::~StaticSprite()
 {

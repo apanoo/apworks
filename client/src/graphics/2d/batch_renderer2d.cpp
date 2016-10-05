@@ -1,4 +1,4 @@
-#include "BatchRenderer2d.h"
+#include "batch_renderer2d.h"
 
 nario::BatchRenderer2d::~BatchRenderer2d()
 {

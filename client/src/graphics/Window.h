@@ -20,10 +20,10 @@ namespace nario {
 		void eventHandler();
 
 	private:
-		bool _close;
 		const char* _name;
 		int _width, _height;
 		SDL_Window* _window;
 		int _mx, _my;
+		bool _close;
 	};
 }

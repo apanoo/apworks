@@ -3,7 +3,7 @@
 #include "graphics/Window.h"
 #include "graphics/Shader.h"
 #include "utils/FileUtils.h"
-#include "log/Log.h"
+#include "log/aplog.h"
 #include "graphics/buffer/VertexArray.h"
 #include "graphics/buffer/IndexBuffer.h"
 #include "graphics/2d/Renderer2d.h"

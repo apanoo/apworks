@@ -1,7 +1,7 @@
 #pragma once
 #include <deque>
 #include "Renderer2d.h"
-#include "StaticSprite.h"
+#include "Static_Sprite.h"
 
 namespace nario {
 	class SimpleRenderer2d : public Renderer2d

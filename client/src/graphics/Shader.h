@@ -1,6 +1,6 @@
 #pragma once
-#include "utils/StdAfx.h"
-#include "math/Maths.h"
+#include "utils/stdafx.h"
+#include "math/maths.h"
 
 namespace nario {
 	class Shader
