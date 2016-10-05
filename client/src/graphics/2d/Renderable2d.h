@@ -15,12 +15,15 @@ namespace nario {
 		unsigned int color;
 	};
 
+	class Renderer2d;
 	class Renderable2d
 	{
+	protected:
+		Renderable2d() {}
 	public:
 		explicit Renderable2d(const Vector3& position, const Vector2& size, const Vector4& color);
 		virtual ~Renderable2d();
-
+		virtual void submit(Renderer2d* renderer) const;
 	public:
 		inline const Vector3& getPosition() const { return _position; }
 		inline const Vector2& getSize() const { return _size; }

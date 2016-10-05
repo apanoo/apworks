@@ -33,10 +33,11 @@ int main(int argc, char** argv)
 
 	Sprite* button = new Sprite(-15.0f, 5.0f, 6, 3, Vector4(1, 1, 1, 1));
 
-	layer.add(button);
-	//layer.push(Matrix4(button->getPosition()));
-	layer.add(new Sprite(0.2f, 0.2f, 5.5f, 2.0f, Vector4(1, 0, 1, 1)));
-	//layer.pop();
+	Group* group = new Group(Matrix4().translationMatrix(Vector3(-15.0f, 5.0f, 0.0f)));
+	group->add(new Sprite(0, 0, 6, 3, Vector4(1, 1, 1, 1)));
+	group->add(new Sprite(0.5f, 0.5f, 5.0f, 2.0f, Vector4(1, 0, 1, 1)));
+	
+	layer.add(group);
 
 	Timer time; // timer 
 	float t = 0;

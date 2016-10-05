@@ -21,7 +21,7 @@ void nario::Layer::render()
 	_renderer->begin();
 	for (const Renderable2d* renderable : _renderables)
 	{
-		_renderer->submit(renderable);
+		renderable->submit(_renderer);
 	}
 	_renderer->end();
 	_renderer->flush();
