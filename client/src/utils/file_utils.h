@@ -2,14 +2,14 @@
 #include <string>
 
 namespace nario {
-	const static char* res_prefix = "../../res/";
 	class FileUtils
 	{
 	public:
+
 		static std::string readFile(const char* filename)
 		{
 			char path[256];
-			sprintf(path, "%s%s", res_prefix, filename);
+			sprintf(path, "../../res/%s", filename);
 			FILE* file = fopen(path, "rt");
 			fseek(file, 0, SEEK_END);
 			unsigned long length = ftell(file); // file length

@@ -16,6 +16,7 @@
 #include "graphics/2d/layer.h"
 #include "graphics/2d/tile_layer.h"
 #include "graphics/2d/group.h"
+#include "graphics/texture.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

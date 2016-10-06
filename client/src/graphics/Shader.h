@@ -26,8 +26,9 @@ namespace nario {
 		GLuint load();
 		GLuint getUniformLocation(const GLchar* name);
 
-	private:
+	public:
 		GLuint _shaderId;
+	private:
 		const char* _vertPath;
 		const char* _fragPath;
 	};

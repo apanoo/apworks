@@ -5,6 +5,7 @@ uniform vec2 light_pos;
 
 in DATA {
 	vec4 position;
+	vec2 uv;
 	vec4 color;
 } fs_in;
 

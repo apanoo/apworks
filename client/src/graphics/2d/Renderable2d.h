@@ -3,6 +3,7 @@
 #include "graphics/buffer/index_buffer.h"
 #include "graphics/buffer/vertex_array.h"
 #include "graphics/shader.h"
+#include <vector>
 
 #include "math/Maths.h"
 
@@ -11,7 +12,8 @@ namespace nario {
 	struct VertexData
 	{
 		Vector3 vertex;
-		//Vector4 color;
+		Vector2 uv;
+		//unsigned int tid; // texture id
 		unsigned int color;
 	};
 
@@ -19,7 +21,7 @@ namespace nario {
 	class Renderable2d
 	{
 	protected:
-		Renderable2d() {}
+		Renderable2d();
 	public:
 		explicit Renderable2d(const Vector3& position, const Vector2& size, const Vector4& color);
 		virtual ~Renderable2d();
@@ -28,9 +30,13 @@ namespace nario {
 		inline const Vector3& getPosition() const { return _position; }
 		inline const Vector2& getSize() const { return _size; }
 		inline const Vector4& getColor() const { return _color; }
+		inline const std::vector<Vector2>& getUV() const { return _uv; }
+	private:
+		void setUVdefault();
 	protected:
 		Vector3 _position;
 		Vector2 _size;
 		Vector4 _color;
+		std::vector<Vector2> _uv;
 	};
 }

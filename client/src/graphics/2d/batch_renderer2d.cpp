@@ -18,6 +18,7 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 	const Vector3& position = renderable->getPosition();
 	const Vector2& size = renderable->getSize();
 	const Vector4& color = renderable->getColor();
+	const std::vector<Vector2>& uv = renderable->getUV();
 
 	int r = (int)(color.getX() * 255.0f);
 	int g = (int)(color.getY() * 255.0f);
@@ -27,18 +28,22 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 	unsigned int c = a << 24 | b << 16 | g << 8 | r;
 	auto a1 = *_transformationBack;
 	_buffer->vertex = *_transformationBack * position;
+	_buffer->uv = uv[0];
 	_buffer->color = c;
 	_buffer++;
 
 	_buffer->vertex = *_transformationBack * Vector3(position.getX(), position.getY() + size.getY(), position.getZ());
+	_buffer->uv = uv[1];
 	_buffer->color = c;
 	_buffer++;
 
 	_buffer->vertex = *_transformationBack * Vector3(position.getX() + size.getX(), position.getY() + size.getY(), position.getZ());
+	_buffer->uv = uv[2];
 	_buffer->color = c;
 	_buffer++;
 
 	_buffer->vertex = *_transformationBack * Vector3(position.getX() + size.getX(), position.getY(), position.getZ());
+	_buffer->uv = uv[3];
 	_buffer->color = c;
 	_buffer++;
 
@@ -73,11 +78,14 @@ void nario::BatchRenderer2d::init()
 	glBindVertexArray(_VAO);			 // bind vao
 	glBindBuffer(GL_ARRAY_BUFFER, _VBO); // bind buffer
 
+	glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
+	glEnableVertexAttribArray(SHADER_UV_INDEX);
+	glEnableVertexAttribArray(SHADER_COLOR_INDEX);
+
 	glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)0);
+	glVertexAttribPointer(SHADER_UV_INDEX, 2, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::uv)));
 	glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(offsetof(VertexData, VertexData::color)));
-	glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
-	glEnableVertexAttribArray(SHADER_COLOR_INDEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind buffer
 
 	/*GLushort*/GLuint* indeices = new GLuint[RENDERER_INDICES_SIZE]; // indices array

@@ -5,38 +5,20 @@
 // nario lib
 #include "../nario.h"
 
-#define BATCH 1
-
+#if 1
 int main(int argc, char** argv)
 {
 	using namespace nario;
 	Window window("window", 960, 540);
 
 	Shader* shader = new Shader("shaders/basic.vert", "shaders/basic.frag");
-	Shader* shader2 = new Shader("shaders/basic.vert", "shaders/basic.frag");
-	shader->enable();
-	shader->setUniform2f("light_pos", Vector2(0.0f, 0.0f));
 
-	shader2->enable();
-	shader2->setUniform2f("light_pos", Vector2(0.0f, 0.0f));
-
+	//Texture texture("textures/basic.png");
 	TileLayer layer(shader);
-	TileLayer layer2(shader2);
-
-	for (float y = -9.0f; y < 9.0f; y += 0.1f)
-	{
-		for (float x = -16.0f; x < 16.0f; x += 0.1f)
-		{
-			//layer.add(new Sprite(x, y, 0.08f, 0.08f, Vector4(rand() % 1000 / 1000.0f, 0, 1, 1.0f)));
-		}
-	}
-
-	Sprite* button = new Sprite(-15.0f, 5.0f, 6, 3, Vector4(1, 1, 1, 1));
 
 	Group* group = new Group(Matrix4().translationMatrix(Vector3(-15.0f, 5.0f, 0.0f)));
 	group->add(new Sprite(0, 0, 6, 3, Vector4(1, 1, 1, 1)));
 	group->add(new Sprite(0.5f, 0.5f, 5.0f, 2.0f, Vector4(1, 0, 1, 1)));
-	
 	layer.add(group);
 
 	Timer time; // timer 
@@ -64,3 +46,5 @@ int main(int argc, char** argv)
 
     return 0;
 }
+
+#endif
