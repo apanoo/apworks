@@ -29,6 +29,7 @@ ADD_SUBDIRECTORY( deps/glew2.0/GL )
 ADD_SUBDIRECTORY( deps/SDL2 )
 ADD_SUBDIRECTORY( deps/assimp )
 ADD_SUBDIRECTORY( deps/FreeImage )
+ADD_SUBDIRECTORY( deps/freetype )
 
 set_target_properties(uninstall PROPERTIES FOLDER "CMakePredefinedTargets") 
 
@@ -36,6 +37,7 @@ set_target_properties(assimp PROPERTIES FOLDER "Dependencies")
 set_target_properties(Box2D PROPERTIES FOLDER "Dependencies") 
 set_target_properties(glew PROPERTIES FOLDER "Dependencies") 
 set_target_properties(SDL2 PROPERTIES FOLDER "Dependencies") 
+set_target_properties(freetype PROPERTIES FOLDER "Dependencies")
 
 set_target_properties(freeimage PROPERTIES FOLDER "Dependencies/freeimage") 
 set_target_properties(libjpeg PROPERTIES FOLDER "Dependencies/freeimage") 
