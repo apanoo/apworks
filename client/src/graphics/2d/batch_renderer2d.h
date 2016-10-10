@@ -1,5 +1,6 @@
 #pragma once
 #include <cstddef>
+#include <vector>
 #include "renderer2d.h"
 #include "graphics/buffer/index_buffer.h"
 
@@ -13,7 +14,8 @@ namespace nario {
 
 #define SHADER_VERTEX_INDEX 0
 #define SHADER_UV_INDEX 1
-#define SHADER_COLOR_INDEX 2
+#define SHADER_TID_INDEX 2
+#define SHADER_COLOR_INDEX 3
 
 	class BatchRenderer2d : public Renderer2d
 	{
@@ -35,5 +37,7 @@ namespace nario {
 		GLsizei _indexCount;
 
 		VertexData* _buffer;
+
+		std::vector<GLuint> _textureSlots; // for multi texture render
 	};
 }

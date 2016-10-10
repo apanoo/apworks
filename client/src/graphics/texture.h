@@ -15,6 +15,7 @@ namespace nario {
 
 		inline unsigned int getWidth() const { return _width; }
 		inline unsigned int getHeight() const { return _height; }
+		inline GLuint getId() const { return _tid; }
 	private:
 		GLuint load();
 	private:

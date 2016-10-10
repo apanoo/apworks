@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "math/Maths.h"
+#include "graphics/texture.h"
 
 namespace nario {
 
@@ -13,7 +14,7 @@ namespace nario {
 	{
 		Vector3 vertex;
 		Vector2 uv;
-		//unsigned int tid; // texture id
+		float tid; // texture id
 		unsigned int color;
 	};
 
@@ -30,7 +31,10 @@ namespace nario {
 		inline const Vector3& getPosition() const { return _position; }
 		inline const Vector2& getSize() const { return _size; }
 		inline const Vector4& getColor() const { return _color; }
-		inline const std::vector<Vector2>& getUV() const { return _uv; }
+		inline const std::vector<Vector2>& getUVs() const { return _uv; }
+
+		// texture id
+		inline const GLuint getTid() const { return _texture == nullptr ? 0 : _texture->getId(); }
 	private:
 		void setUVdefault();
 	protected:
@@ -38,5 +42,6 @@ namespace nario {
 		Vector2 _size;
 		Vector4 _color;
 		std::vector<Vector2> _uv;
+		Texture* _texture;
 	};
 }

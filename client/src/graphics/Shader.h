@@ -16,7 +16,9 @@ namespace nario {
 		* Set uniform for shader
 		*/
 		void setUniform1f(const GLchar* name, float value);
+		void setUniform1fv(const GLchar* name, float* value, int count);
 		void setUniform1i(const GLchar* name, int value);
+		void setUniform1iv(const GLchar* name,int* value, int count);
 		void setUniform2f(const GLchar* name, Vector2& vector);
 		void setUniform3f(const GLchar* name, const Vector3& vector);
 		void setUniform4f(const GLchar* name, const Vector4& vector);

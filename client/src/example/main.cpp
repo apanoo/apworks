@@ -12,14 +12,23 @@ int main(int argc, char** argv)
 	Window window("window", 960, 540);
 
 	Shader* shader = new Shader("shaders/basic.vert", "shaders/basic.frag");
-
-	//Texture texture("textures/basic.png");
 	TileLayer layer(shader);
 
-	Group* group = new Group(Matrix4().translationMatrix(Vector3(-15.0f, 5.0f, 0.0f)));
-	group->add(new Sprite(0, 0, 6, 3, Vector4(1, 1, 1, 1)));
-	group->add(new Sprite(0.5f, 0.5f, 5.0f, 2.0f, Vector4(1, 0, 1, 1)));
-	layer.add(group);
+	Texture* texture = new Texture("textures/basic.png");
+
+	int texIds[] = {
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+	};
+
+	shader->enable();
+	shader->setUniform1iv("textures", texIds, 10);
+	// sprite group : example for button
+	//Group* group = new Group(Matrix4().translationMatrix(Vector3(-15.0f, 5.0f, 0.0f)));
+	//group->add(new Sprite(0, 0, 6, 3, Vector4(1, 1, 1, 1)));
+	//group->add(new Sprite(0.5f, 0.5f, 5.0f, 2.0f, Vector4(1, 0, 1, 1)));
+	//layer.add(group);
+
+	layer.add(new Sprite(0, 0, 4, 4, texture));
 
 	Timer time; // timer 
 	float t = 0;
@@ -43,6 +52,8 @@ int main(int argc, char** argv)
 			frames = 0;
 		}
 	}
+
+	delete texture;
 
     return 0;
 }
