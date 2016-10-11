@@ -32,6 +32,7 @@ namespace nario {
 
 		virtual void begin() {}
 		virtual void submit(const Renderable2d* renderable) = 0;
+		virtual void drawString(const std::string& text, const Vector3& position, const Vector4& color) {}
 		virtual void end() {}
 		virtual void flush() = 0;
 	protected:

@@ -89,6 +89,98 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 	_indexCount += 6;
 }
 
+void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& position, const Vector4& color)
+{
+	using namespace ftgl; // freetype-gl
+
+	int r = (int)(color.getX() * 255.0f);
+	int g = (int)(color.getY() * 255.0f);
+	int b = (int)(color.getZ() * 255.0f);
+	int a = (int)(color.getW() * 255.0f);
+
+	unsigned int  tc = a << 24 | b << 16 | g << 8 | r;
+
+	float ts = 0.0f;
+	bool found = false;
+	for (unsigned int i = 0; i < _textureSlots.size(); ++i)
+	{
+		if (_textureSlots[i] == _FTAtlas->id)
+		{
+			ts = (float)(i + 1);
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		if (_textureSlots.size() >= 32) // draw
+		{
+			end();
+			flush();
+			begin();
+		}
+		_textureSlots.push_back(_FTAtlas->id);
+		ts = (float)(_textureSlots.size());
+	}
+
+	float scaleX = 960.0f / 32.0f;
+	float scaleY = 540.0f / 18.0f;
+
+	float x = position.getX();
+	for (unsigned int i = 0; i < text.length(); i++)
+	{
+
+		const char* c = &text[i];
+		texture_glyph_t* glyph = texture_font_get_glyph(_FTFont, c);
+		if (glyph != NULL)
+		{
+			if (i > 0)
+			{
+				float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
+				x += kerning / scaleX;
+			}
+
+			float x0 = x + glyph->offset_x / scaleX;
+			float y0 = position.getY() + glyph->offset_y / scaleY;
+			float x1 = x0 + glyph->width / scaleX;
+			float y1 = y0 - glyph->height / scaleY;
+
+			float u0 = glyph->s0;
+			float v0 = glyph->t0;
+			float u1 = glyph->s1;
+			float v1 = glyph->t1;
+
+			_buffer->vertex = *_transformationBack * Vector3(x0, y0, 0);
+			_buffer->uv = Vector2(u0, v1);
+			_buffer->tid = ts;
+			_buffer->color = tc;
+			_buffer++;
+
+			_buffer->vertex = *_transformationBack * Vector3(x0, y1, 0);
+			_buffer->uv = Vector2(u0, v1);
+			_buffer->tid = ts;
+			_buffer->color = tc;
+			_buffer++;
+
+			_buffer->vertex = *_transformationBack * Vector3(x1, y1, 0);
+			_buffer->uv = Vector2(u1, v1);
+			_buffer->tid = ts;
+			_buffer->color = tc;
+			_buffer++;
+
+			_buffer->vertex = *_transformationBack * Vector3(x1, y0, 0);
+			_buffer->uv = Vector2(u1, v0);
+			_buffer->tid = ts;
+			_buffer->color = tc;
+			_buffer++;
+
+			_indexCount += 6;
+
+			x += glyph->width / scaleX;
+		}
+	}
+}
+
 // unbind vbo and unmap buffer
 void nario::BatchRenderer2d::end()
 {
@@ -152,6 +244,10 @@ void nario::BatchRenderer2d::init()
 	_IBO = new IndexBuffer(indeices, RENDERER_INDICES_SIZE);
 
 	glBindVertexArray(0); // unbind vao
+
+	// init font
+	_FTAtlas = ftgl::texture_atlas_new(512, 512, 1);
+	_FTFont = ftgl::texture_font_new_from_file(_FTAtlas, 180, "../../res/fonts/arial.ttf");
 }
 
 nario::BatchRenderer2d::BatchRenderer2d()

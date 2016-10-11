@@ -89,6 +89,10 @@ bool nario::Window::init()
 		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
 	}
 
+	// enable blend
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// double buffer 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include "renderer2d.h"
 #include "graphics/buffer/index_buffer.h"
+#include "extension/freetype-gl/freetype-gl.h"
 
 namespace nario {
 
@@ -25,6 +26,7 @@ namespace nario {
 
 		void begin() override;
 		void submit(const Renderable2d* renderable) override;
+		void drawString(const std::string& text, const Vector3& position, const Vector4& color) override;
 		void end() override;
 
 		void flush() override;
@@ -39,5 +41,8 @@ namespace nario {
 		VertexData* _buffer;
 
 		std::vector<GLuint> _textureSlots; // for multi texture render
+
+		ftgl::texture_atlas_t* _FTAtlas;
+		ftgl::texture_font_t* _FTFont;
 	};
 }

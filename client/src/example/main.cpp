@@ -28,7 +28,13 @@ int main(int argc, char** argv)
 	//group->add(new Sprite(0.5f, 0.5f, 5.0f, 2.0f, Vector4(1, 0, 1, 1)));
 	//layer.add(group);
 
-	layer.add(new Sprite(0, 0, 4, 4, texture));
+	for (int i = -16; i < 16; i++)
+	{
+		for (int j = -9; j < 9; j++)
+		{
+			layer.add(new Sprite(i, j, 0.9f, 0.9f, texture));
+		}
+	}
 
 	Timer time; // timer 
 	float t = 0;
