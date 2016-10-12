@@ -11,6 +11,8 @@ namespace nario {
 		virtual void add(Renderable2d* renderable);
 		virtual void render();
 
+		inline const std::vector<Renderable2d*>& getRenderables() const { return _renderables; }
+
 	protected:
 		Layer(Renderer2d* renderer, Shader* shader, const Matrix4& projection);
 	protected:

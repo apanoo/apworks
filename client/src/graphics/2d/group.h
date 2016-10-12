@@ -10,6 +10,7 @@ namespace nario {
 	{
 	public:
 		Group(const Matrix4& transform);
+		~Group();
 
 		void submit(Renderer2d* renderer) const override;
 		void add(Renderable2d* renderable);

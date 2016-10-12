@@ -17,11 +17,9 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 {
 	const Vector3& position = renderable->getPosition();
 	const Vector2& size = renderable->getSize();
-	const Vector4& color = renderable->getColor();
+	const unsigned int color = renderable->getColor();
 	const std::vector<Vector2>& uv = renderable->getUVs();
 	const GLuint tid = renderable->getTid(); // Texture id
-
-	unsigned int c = 0; // color
 
 	float ts = 0.0f;
 	if (tid > 0) // with texture
@@ -48,60 +46,47 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 			ts = (float)(_textureSlots.size());
 		}
 	}
-	int r = (int)(color.getX() * 255.0f);
-	int g = (int)(color.getY() * 255.0f);
-	int b = (int)(color.getZ() * 255.0f);
-	int a = (int)(color.getW() * 255.0f);
-
-	c = a << 24 | b << 16 | g << 8 | r;
 
 	// point 1
 	_buffer->vertex = *_transformationBack * position;
 	_buffer->uv = uv[0];
 	_buffer->tid = ts;
-	_buffer->color = c;
+	_buffer->color = color;
 	_buffer++;
 
 	// point 2
 	_buffer->vertex = *_transformationBack * Vector3(position.getX(), position.getY() + size.getY(), position.getZ());
 	_buffer->uv = uv[1];
 	_buffer->tid = ts;
-	_buffer->color = c;
+	_buffer->color = color;
 	_buffer++;
 
 	// point 3
 	_buffer->vertex = *_transformationBack * Vector3(position.getX() + size.getX(), position.getY() + size.getY(), position.getZ());
 	_buffer->uv = uv[2];
 	_buffer->tid = ts;
-	_buffer->color = c;
+	_buffer->color = color;
 	_buffer++;
 
 	// point 4
 	_buffer->vertex = *_transformationBack * Vector3(position.getX() + size.getX(), position.getY(), position.getZ());
 	_buffer->uv = uv[3];
 	_buffer->tid = ts;
-	_buffer->color = c;
+	_buffer->color = color;
 	_buffer++;
 
 	_indexCount += 6;
 }
 
-void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& position, const Vector4& color)
+void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& position, unsigned int color, const Font& font)
 {
 	using namespace ftgl; // freetype-gl
-
-	int r = (int)(color.getX() * 255.0f);
-	int g = (int)(color.getY() * 255.0f);
-	int b = (int)(color.getZ() * 255.0f);
-	int a = (int)(color.getW() * 255.0f);
-
-	unsigned int  tc = a << 24 | b << 16 | g << 8 | r;
 
 	float ts = 0.0f;
 	bool found = false;
 	for (unsigned int i = 0; i < _textureSlots.size(); ++i)
 	{
-		if (_textureSlots[i] == _FTAtlas->id)
+		if (_textureSlots[i] == font.getId())
 		{
 			ts = (float)(i + 1);
 			found = true;
@@ -116,7 +101,7 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 			flush();
 			begin();
 		}
-		_textureSlots.push_back(_FTAtlas->id);
+		_textureSlots.push_back(font.getId());
 		ts = (float)(_textureSlots.size());
 	}
 
@@ -126,7 +111,8 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 	float x = position.getX();
 	for (unsigned int i = 0; i < text.length(); i++)
 	{
-		texture_glyph_t* glyph = texture_font_get_glyph(_FTFont, text[i]);
+		texture_font_t* ftFont = font.getFTFont();
+		texture_glyph_t* glyph = texture_font_get_glyph(ftFont, text[i]);
 		if (glyph != NULL)
 		{
 			if (i > 0)
@@ -148,25 +134,25 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 			_buffer->vertex = *_transformationBack * Vector3(x0, y0, 0);
 			_buffer->uv = Vector2(u0, v0);
 			_buffer->tid = ts;
-			_buffer->color = tc;
+			_buffer->color = color;
 			_buffer++;
 
 			_buffer->vertex = *_transformationBack * Vector3(x0, y1, 0);
 			_buffer->uv = Vector2(u0, v1);
 			_buffer->tid = ts;
-			_buffer->color = tc;
+			_buffer->color = color;
 			_buffer++;
 
 			_buffer->vertex = *_transformationBack * Vector3(x1, y1, 0);
 			_buffer->uv = Vector2(u1, v1);
 			_buffer->tid = ts;
-			_buffer->color = tc;
+			_buffer->color = color;
 			_buffer++;
 
 			_buffer->vertex = *_transformationBack * Vector3(x1, y0, 0);
 			_buffer->uv = Vector2(u1, v0);
 			_buffer->tid = ts;
-			_buffer->color = tc;
+			_buffer->color = color;
 			_buffer++;
 
 			_indexCount += 6;
@@ -239,10 +225,6 @@ void nario::BatchRenderer2d::init()
 	_IBO = new IndexBuffer(indeices, RENDERER_INDICES_SIZE);
 
 	glBindVertexArray(0); // unbind vao
-
-	// init font
-	_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
-	_FTFont = ftgl::texture_font_new_from_file(_FTAtlas, 32, "../../res/fonts/arial.ttf");
 }
 
 nario::BatchRenderer2d::BatchRenderer2d()

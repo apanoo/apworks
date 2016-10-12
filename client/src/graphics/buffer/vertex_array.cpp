@@ -20,6 +20,8 @@ void nario::VertexArray::addBuffer(Buffer* buffer, GLuint index)
 
 	buffer->unbind();
 	unbind();
+
+	_buffers.push_back(buffer);
 }
 
 void nario::VertexArray::bind() const

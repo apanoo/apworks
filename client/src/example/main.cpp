@@ -28,15 +28,26 @@ int main(int argc, char** argv)
 	//group->add(new Sprite(0.5f, 0.5f, 5.0f, 2.0f, Vector4(1, 0, 1, 1)));
 	//layer.add(group);
 
-	for (int i = -16; i < 16; i++)
+	for (float i = -16.0f; i < 16.0f; i++)
 	{
-		for (int j = -9; j < 9; j++)
+		for (float j = -9.0f; j < 9.0f; j++)
 		{
 			layer.add(new Sprite(i, j, 0.9f, 0.9f, texture));
 		}
 	}
 
-	layer.add(new Label("nario!", 0, 0, Vector4(1, 0, 0, 1)));
+	Font* font = new Font("arial", "../../res/fonts/arial.ttf", 64);
+	Label* label = new Label("nario!", 0, 0, 0xff00ff00, font);
+	layer.add(label);
+
+	window.keyTypeHandler = [&](int key) {
+		//if (key == SDLK_0) aplog::logwarning(key);
+		//label->setText(std::to_string(key));
+	};
+
+	window.mouseClickHandler = [](int index) {
+		if(index == SDL_BUTTON_LEFT) aplog::logwarning(index);
+	};
 
 	Timer time; // timer 
 	float t = 0;
@@ -47,11 +58,12 @@ int main(int argc, char** argv)
 		int x = window.getMouseX();
 		int y = window.getMouseY(); 
 		shader->enable();
-		shader->setUniform2f("light_pos", Vector2((float)(x * 32.0f / 960.0f - 16.0f), (float)(9.0f - y * 18.0f / 540.0f)));
+		shader->setUniform2f("light_pos", Vector2((float)(x * 32.0f / window.getWidth() - 16.0f), (float)(9.0f - y * 18.0f / window.getHeight())));
 
 		layer.render();
 
 		window.update();
+
 		frames++;
 		if (time.elapsed() - t > 1.0f)
 		{
@@ -62,7 +74,7 @@ int main(int argc, char** argv)
 	}
 
 	delete texture;
-
+	delete font;
     return 0;
 }
 

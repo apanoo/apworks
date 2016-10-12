@@ -9,7 +9,7 @@ namespace nario {
 	class StaticSprite : public Renderable2d
 	{
 	public:
-		StaticSprite(float x, float y, float width, float height, const Vector4& color, Shader& shader);
+		StaticSprite(float x, float y, float width, float height, unsigned int color, Shader& shader);
 		~StaticSprite();
 
 		inline const VertexArray* getVAO() const { return _vertexArray; }

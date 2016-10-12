@@ -13,6 +13,7 @@ namespace nario {
 		// set font scale
 		void setScale(float x, float y);
 
+		inline ftgl::texture_font_t* getFTFont() const { return _FTFont; }
 		inline const std::string& getName() const { return _name; }
 		inline const Vector2& getScale() const { return _scale; }
 		inline const std::string& getFilename() const { return _filename; }

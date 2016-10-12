@@ -18,6 +18,7 @@
 #include "graphics/2d/group.h"
 #include "graphics/texture.h"
 #include "graphics/2d/label.h"
+#include "graphics/2d/font.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

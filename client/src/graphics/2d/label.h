@@ -8,7 +8,7 @@ namespace nario {
 	class Label : public Renderable2d
 	{
 	public:
-		Label(std::string text, float x, float y, const Vector4& color);
+		Label(std::string text, float x, float y, unsigned int color, Font* font);
 		~Label();
 
 		void submit(Renderer2d* renderer) const override;
@@ -16,5 +16,6 @@ namespace nario {
 		inline void setText(const std::string& text) { _text = text; }
 	private:
 		std::string _text;
+		Font* _font;
 	};
 }

@@ -1,7 +1,7 @@
 #include "renderable2d.h"
 #include "renderer2d.h"
 
-nario::Renderable2d::Renderable2d(const Vector3& position, const Vector2& size, const Vector4& color)
+nario::Renderable2d::Renderable2d(const Vector3& position, const Vector2& size, unsigned int color)
 	:_position(position), _size(size), _color(color), _texture(nullptr)
 {
 	setUVdefault();

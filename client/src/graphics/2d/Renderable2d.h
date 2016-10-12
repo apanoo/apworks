@@ -24,7 +24,7 @@ namespace nario {
 	protected:
 		Renderable2d();
 	public:
-		explicit Renderable2d(const Vector3& position, const Vector2& size, const Vector4& color);
+		explicit Renderable2d(const Vector3& position, const Vector2& size, unsigned int color);
 		virtual ~Renderable2d();
 		virtual void submit(Renderer2d* renderer) const;
 	public:
@@ -34,8 +34,17 @@ namespace nario {
 		inline const Vector2& getSize() const { return _size; }
 		inline void setSize(const Vector2& size) { _size = size; }
 
-		inline const Vector4& getColor() const { return _color; }
-		inline void setColor(const Vector4& color) { _color = color; }
+		inline const unsigned int getColor() const { return _color; }
+		inline void setColor(unsigned int color) { _color = color; }
+		inline void setColor(const Vector4& color)
+		{
+			int r = (int)(color.getX() * 255.0f);
+			int g = (int)(color.getY() * 255.0f);
+			int b = (int)(color.getZ() * 255.0f);
+			int a = (int)(color.getW() * 255.0f);
+
+			_color = a << 24 | b << 16 | g << 8 | r;
+		}
 
 		inline const std::vector<Vector2>& getUVs() const { return _uv; }
 
@@ -46,7 +55,7 @@ namespace nario {
 	protected:
 		Vector3 _position;
 		Vector2 _size;
-		Vector4 _color;
+		unsigned int _color; // 0xffffffff 32位从低位到高位每8位一组分别表示RGBA
 		std::vector<Vector2> _uv;
 		Texture* _texture;
 	};
