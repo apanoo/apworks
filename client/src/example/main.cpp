@@ -36,6 +36,8 @@ int main(int argc, char** argv)
 		}
 	}
 
+	layer.add(new Label("nario!", 0, 0, Vector4(1, 0, 0, 1)));
+
 	Timer time; // timer 
 	float t = 0;
 	unsigned int frames = 0;

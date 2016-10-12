@@ -12,6 +12,8 @@ namespace nario {
 		~Label();
 
 		void submit(Renderer2d* renderer) const override;
+		inline std::string const getText() const { return _text; }
+		inline void setText(const std::string& text) { _text = text; }
 	private:
 		std::string _text;
 	};

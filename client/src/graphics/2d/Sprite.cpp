@@ -12,7 +12,7 @@ nario::Sprite::Sprite(float x, float y, float width, float height, const Vector4
 }
 
 nario::Sprite::Sprite(float x, float y, float width, float height, Texture* texture)
-	:Renderable2d(Vector3(x, y, 0), Vector2(width, height), Vector4(1, 0, 1, 1))
+	:Renderable2d(Vector3(x, y, 0), Vector2(width, height), Vector4(1, 1, 1, 1))
 {
 	_texture = texture;
 }

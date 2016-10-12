@@ -29,8 +29,14 @@ namespace nario {
 		virtual void submit(Renderer2d* renderer) const;
 	public:
 		inline const Vector3& getPosition() const { return _position; }
+		inline void setPosition(const Vector3& position) { _position = position; }
+
 		inline const Vector2& getSize() const { return _size; }
+		inline void setSize(const Vector2& size) { _size = size; }
+
 		inline const Vector4& getColor() const { return _color; }
+		inline void setColor(const Vector4& color) { _color = color; }
+
 		inline const std::vector<Vector2>& getUVs() const { return _uv; }
 
 		// texture id

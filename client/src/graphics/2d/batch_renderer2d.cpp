@@ -48,15 +48,12 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 			ts = (float)(_textureSlots.size());
 		}
 	}
-	else // no texture 
-	{
-		int r = (int)(color.getX() * 255.0f);
-		int g = (int)(color.getY() * 255.0f);
-		int b = (int)(color.getZ() * 255.0f);
-		int a = (int)(color.getW() * 255.0f);
+	int r = (int)(color.getX() * 255.0f);
+	int g = (int)(color.getY() * 255.0f);
+	int b = (int)(color.getZ() * 255.0f);
+	int a = (int)(color.getW() * 255.0f);
 
-		c = a << 24 | b << 16 | g << 8 | r;
-	}
+	c = a << 24 | b << 16 | g << 8 | r;
 
 	// point 1
 	_buffer->vertex = *_transformationBack * position;
@@ -129,14 +126,12 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 	float x = position.getX();
 	for (unsigned int i = 0; i < text.length(); i++)
 	{
-
-		const char* c = &text[i];
-		texture_glyph_t* glyph = texture_font_get_glyph(_FTFont, c);
+		texture_glyph_t* glyph = texture_font_get_glyph(_FTFont, text[i]);
 		if (glyph != NULL)
 		{
 			if (i > 0)
 			{
-				float kerning = texture_glyph_get_kerning(glyph, &text[i - 1]);
+				float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
 				x += kerning / scaleX;
 			}
 
@@ -151,7 +146,7 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 			float v1 = glyph->t1;
 
 			_buffer->vertex = *_transformationBack * Vector3(x0, y0, 0);
-			_buffer->uv = Vector2(u0, v1);
+			_buffer->uv = Vector2(u0, v0);
 			_buffer->tid = ts;
 			_buffer->color = tc;
 			_buffer++;
@@ -176,7 +171,7 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 
 			_indexCount += 6;
 
-			x += glyph->width / scaleX;
+			x += (glyph->advance_x / scaleX);
 		}
 	}
 }
@@ -246,8 +241,8 @@ void nario::BatchRenderer2d::init()
 	glBindVertexArray(0); // unbind vao
 
 	// init font
-	_FTAtlas = ftgl::texture_atlas_new(512, 512, 1);
-	_FTFont = ftgl::texture_font_new_from_file(_FTAtlas, 180, "../../res/fonts/arial.ttf");
+	_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
+	_FTFont = ftgl::texture_font_new_from_file(_FTAtlas, 32, "../../res/fonts/arial.ttf");
 }
 
 nario::BatchRenderer2d::BatchRenderer2d()

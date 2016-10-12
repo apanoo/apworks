@@ -23,7 +23,6 @@ void nario::Layer::render()
 	{
 		renderable->submit(_renderer);
 	}
-	_renderer->drawString("Hello!", Vector3(0, 0, 0), Vector4(1, 0, 1, 1));
 	_renderer->end();
 	_renderer->flush();
 }

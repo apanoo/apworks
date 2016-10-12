@@ -1,7 +1,7 @@
 /* ============================================================================
  * Freetype GL - A C OpenGL Freetype engine
  * Platform:    Any
- * WWW:         https://github.com/rougier/freetype-gl
+ * WWW:         http://code.google.com/p/freetype-gl/
  * ----------------------------------------------------------------------------
  * Copyright 2011,2012 Nicolas P. Rougier. All rights reserved.
  *
@@ -50,6 +50,7 @@
 extern "C" {
 #endif
 
+#include "common.h"
 #include "vector.h"
 #include "vec234.h"
 
@@ -149,7 +150,7 @@ typedef struct texture_atlas_t
  * @return          a new empty texture atlas.
  *
  */
-  texture_atlas_t *
+  DLL_EXPORT texture_atlas_t *
   texture_atlas_new( const size_t width,
                      const size_t height,
                      const size_t depth );
@@ -161,8 +162,18 @@ typedef struct texture_atlas_t
  *  @param self a texture atlas structure
  *
  */
-  void
+  DLL_EXPORT void
   texture_atlas_delete( texture_atlas_t * self );
+
+
+/**
+ *  Upload atlas to video memory.
+ *
+ *  @param self a texture atlas structure
+ *
+ */
+  DLL_EXPORT void
+  texture_atlas_upload( texture_atlas_t * self );
 
 
 /**
@@ -174,7 +185,7 @@ typedef struct texture_atlas_t
  *  @return       Coordinates of the allocated region
  *
  */
-  ivec4
+  DLL_EXPORT ivec4
   texture_atlas_get_region( texture_atlas_t * self,
                             const size_t width,
                             const size_t height );
@@ -192,7 +203,7 @@ typedef struct texture_atlas_t
  *  @param stride stride of the data
  *
  */
-  void
+  DLL_EXPORT void
   texture_atlas_set_region( texture_atlas_t * self,
                             const size_t x,
                             const size_t y,
@@ -206,7 +217,7 @@ typedef struct texture_atlas_t
  *
  *  @param self   a texture atlas structure
  */
-  void
+  DLL_EXPORT void
   texture_atlas_clear( texture_atlas_t * self );
 
 

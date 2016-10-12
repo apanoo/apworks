@@ -4,6 +4,7 @@
 #include "graphics/shader.h"
 #include "utils/file_utils.h"
 #include "log/aplog.h"
+#include "timer/timer.h"
 #include "graphics/buffer/vertex_array.h"
 #include "graphics/buffer/index_buffer.h"
 #include "graphics/2d/renderer2d.h"
@@ -12,11 +13,11 @@
 #include "graphics/2d/static_sprite.h"
 #include "graphics/2d/sprite.h"
 #include "graphics/2d/batch_renderer2d.h"
-#include "timer/timer.h"
 #include "graphics/2d/layer.h"
 #include "graphics/2d/tile_layer.h"
 #include "graphics/2d/group.h"
 #include "graphics/texture.h"
+#include "graphics/2d/label.h"
 
 ///** Export function
 //* API rule -> define in header files (header.h):

@@ -1,7 +1,7 @@
 /* ============================================================================
  * Freetype GL - A C OpenGL Freetype engine
  * Platform:    Any
- * WWW:         https://github.com/rougier/freetype-gl
+ * WWW:         http://code.google.com/p/freetype-gl/
  * ----------------------------------------------------------------------------
  * Copyright 2011,2012 Nicolas P. Rougier. All rights reserved.
  *
@@ -35,12 +35,12 @@
 #define __TEXTURE_FONT_H__
 
 #include <stdlib.h>
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#include "common.h"
 #include "vector.h"
 #include "texture-atlas.h"
 
@@ -70,32 +70,19 @@ namespace ftgl {
  */
 
 
-/**
- * A list of possible ways to render a glyph.
- */
-typedef enum rendermode_t
-{
-    RENDER_NORMAL,
-    RENDER_OUTLINE_EDGE,
-    RENDER_OUTLINE_POSITIVE,
-    RENDER_OUTLINE_NEGATIVE,
-    RENDER_SIGNED_DISTANCE_FIELD
-} rendermode_t;
-
 
 /**
- * A structure that hold a kerning value relatively to a Unicode
- * codepoint.
+ * A structure that hold a kerning value relatively to a charcode.
  *
- * This structure cannot be used alone since the (necessary) right
- * Unicode codepoint is implicitely held by the owner of this structure.
+ * This structure cannot be used alone since the (necessary) right charcode is
+ * implicitely held by the owner of this structure.
  */
 typedef struct kerning_t
 {
     /**
-     * Left Unicode codepoint in the kern pair in UTF-32 LE encoding.
+     * Left character code in the kern pair.
      */
-    uint32_t codepoint;
+    wchar_t charcode;
 
     /**
      * Kerning value (in fractional pixels).
@@ -146,9 +133,14 @@ typedef struct kerning_t
 typedef struct texture_glyph_t
 {
     /**
-     * Unicode codepoint this glyph represents in UTF-32 LE encoding.
+     * Wide character this glyph represents
      */
-    uint32_t codepoint;
+    wchar_t charcode;
+
+    /**
+     * Glyph id (used for display lists)
+     */
+    unsigned int id;
 
     /**
      * Glyph's width in pixels.
@@ -213,9 +205,9 @@ typedef struct texture_glyph_t
     vector_t * kerning;
 
     /**
-     * Mode this glyph was rendered
+     * Glyph outline type (0 = None, 1 = line, 2 = inner, 3 = outer)
      */
-    rendermode_t rendermode;
+    int outline_type;
 
     /**
      * Glyph outline thickness
@@ -275,9 +267,9 @@ typedef struct texture_font_t
     int hinting;
 
     /**
-     * Mode the font is rendering its next glyph
+     * Outline type (0 = None, 1 = line, 2 = inner, 3 = outer)
      */
-    rendermode_t rendermode;
+    int outline_type;
 
     /**
      * Outline thickness
@@ -290,15 +282,14 @@ typedef struct texture_font_t
     int filtering;
 
     /**
-     * LCD filter weights
-     */
-    unsigned char lcd_weights[5];
-
-    /**
      * Whether to use kerning if available
      */
     int kerning;
 
+    /**
+     * LCD filter weights
+     */
+    unsigned char lcd_weights[5];
 
     /**
      * This field is simply used to compute a default line spacing (i.e., the
@@ -367,7 +358,7 @@ typedef struct texture_font_t
  * @return A new empty font (no glyph inside yet)
  *
  */
-  texture_font_t *
+ DLL_EXPORT texture_font_t *
   texture_font_new_from_file( texture_atlas_t * atlas,
                               const float pt_size,
                               const char * filename );
@@ -388,7 +379,7 @@ typedef struct texture_font_t
  * @return A new empty font (no glyph inside yet)
  *
  */
-  texture_font_t *
+ DLL_EXPORT texture_font_t *
   texture_font_new_from_memory( texture_atlas_t *atlas,
                                 float pt_size,
                                 const void *memory_base,
@@ -400,7 +391,7 @@ typedef struct texture_font_t
  *
  * @param self a valid texture font
  */
-  void
+ DLL_EXPORT void
   texture_font_delete( texture_font_t * self );
 
 
@@ -408,55 +399,42 @@ typedef struct texture_font_t
  * Request a new glyph from the font. If it has not been created yet, it will
  * be.
  *
- * @param self      A valid texture font
- * @param codepoint Character codepoint to be loaded in UTF-8 encoding.
+ * @param self     A valid texture font
+ * @param charcode Character codepoint to be loaded.
  *
  * @return A pointer on the new glyph or 0 if the texture atlas is not big
  *         enough
  *
  */
-  texture_glyph_t *
+ DLL_EXPORT texture_glyph_t *
   texture_font_get_glyph( texture_font_t * self,
-                          const char * codepoint );
+                          wchar_t charcode );
 
-
-/**
- * Request the loading of a given glyph.
- *
- * @param self       A valid texture font
- * @param codepoints Character codepoint to be loaded in UTF-8 encoding.
- *
- * @return One if the glyph could be loaded, zero if not.
- */
-  int
-  texture_font_load_glyph( texture_font_t * self,
-                           const char * codepoint );
 
 /**
  * Request the loading of several glyphs at once.
  *
- * @param self       A valid texture font
- * @param codepoints Character codepoints to be loaded in UTF-8 encoding. May
- *                   contain duplicates.
+ * @param self      a valid texture font
+ * @param charcodes character codepoints to be loaded.
  *
  * @return Number of missed glyph if the texture is not big enough to hold
  *         every glyphs.
  */
-  size_t
+ DLL_EXPORT size_t
   texture_font_load_glyphs( texture_font_t * self,
-                            const char * codepoints );
+                            const wchar_t * charcodes );
 
 /**
  * Get the kerning between two horizontal glyphs.
  *
- * @param self      A valid texture glyph
- * @param codepoint Character codepoint of the peceding character in UTF-8 encoding.
+ * @param self      a valid texture glyph
+ * @param charcode  codepoint of the peceding glyph
  *
  * @return x kerning value
  */
-float
+ DLL_EXPORT float
 texture_glyph_get_kerning( const texture_glyph_t * self,
-                           const char * codepoint );
+                           const wchar_t charcode );
 
 
 /**
@@ -464,7 +442,7 @@ texture_glyph_get_kerning( const texture_glyph_t * self,
  *
  * @return a new empty glyph (not valid)
  */
-texture_glyph_t *
+ DLL_EXPORT texture_glyph_t *
 texture_glyph_new( void );
 
 /** @} */
