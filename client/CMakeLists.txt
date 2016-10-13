@@ -30,6 +30,7 @@ ADD_SUBDIRECTORY( deps/SDL2 )
 ADD_SUBDIRECTORY( deps/assimp )
 ADD_SUBDIRECTORY( deps/FreeImage )
 ADD_SUBDIRECTORY( deps/freetype )
+ADD_SUBDIRECTORY( deps/openal )
 
 set_target_properties(uninstall PROPERTIES FOLDER "CMakePredefinedTargets") 
 
@@ -49,3 +50,5 @@ set_target_properties(librawlite PROPERTIES FOLDER "Dependencies/freeimage")
 set_target_properties(libtiff4 PROPERTIES FOLDER "Dependencies/freeimage") 
 set_target_properties(libwebp PROPERTIES FOLDER "Dependencies/freeimage") 
 set_target_properties(zlib PROPERTIES FOLDER "Dependencies/freeimage") 
+set_target_properties(openal PROPERTIES FOLDER "Dependencies/openal") 
+set_target_properties(common PROPERTIES FOLDER "Dependencies/openal") 

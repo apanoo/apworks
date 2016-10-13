@@ -53,6 +53,10 @@ SET (EXTRA_LIBS ${EXTRA_LIBS} freeimage)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/deps/freetype/include)
 SET (EXTRA_LIBS ${EXTRA_LIBS} freetype) 
 
+# openal
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/deps/openal/include)
+SET (EXTRA_LIBS ${EXTRA_LIBS} openal common) 
+
 # APP
 FILE(GLOB APP_SRCS "app/*.cpp")
 FILE(GLOB APP_HEADERS "app/*.h")
