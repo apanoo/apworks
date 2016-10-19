@@ -57,6 +57,10 @@ SET (EXTRA_LIBS ${EXTRA_LIBS} freetype)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/deps/openal/include)
 SET (EXTRA_LIBS ${EXTRA_LIBS} openal common) 
 
+# gorilla
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/deps/gorilla-audio/src)
+SET (EXTRA_LIBS ${EXTRA_LIBS} gorilla) 
+
 # APP
 FILE(GLOB APP_SRCS "app/*.cpp")
 FILE(GLOB APP_HEADERS "app/*.h")
