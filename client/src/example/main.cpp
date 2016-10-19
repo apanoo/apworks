@@ -19,6 +19,7 @@ int main(int argc, char** argv)
 	int texIds[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 	};
+	nario::AudioMgr::getInstance()->add(new nario::Audio("test", "../../res/audio/ringtones/Backroad.ogg"));
 
 	shader->enable();
 	shader->setUniform1iv("textures", texIds, 10);
@@ -41,7 +42,7 @@ int main(int argc, char** argv)
 	layer.add(label);
 
 	window.keyTypeHandler = [&](int key) {
-		//if (key == SDLK_0) aplog::logwarning(key);
+		if (key == SDLK_0) nario::AudioMgr::getInstance()->get("test")->play();;
 		//label->setText(std::to_string(key));
 	};
 
@@ -62,6 +63,7 @@ int main(int argc, char** argv)
 
 		layer.render();
 
+		AudioMgr::getInstance()->update();
 		window.update();
 
 		frames++;
