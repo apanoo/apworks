@@ -1,6 +1,7 @@
 #include "window.h"
 #include "utils/stdafx.h"
 #include "log/aplog.h"
+#include "audio/audio_mgr.h"
 
 #define ErrExit(str) { \
 	aplog::logerr(str);\
@@ -79,6 +80,8 @@ void nario::Window::update()
 	{
 		aplog::logerr("OpenGL Error: " , error);
 	}
+
+	AudioMgr::getInstance()->update();
 
 	eventHandler();
 }

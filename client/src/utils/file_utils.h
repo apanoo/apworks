@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "string_utils.h"
 
 namespace nario {
 	class FileUtils
@@ -21,6 +22,11 @@ namespace nario {
 			std::string result(data);
 			delete[] data;
 			return result;
+		}
+
+		static std::string getFileExt(const std::string& filename)
+		{
+			return StringUtils::split(filename, '.').back();
 		}
 	};
 }

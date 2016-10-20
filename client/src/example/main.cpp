@@ -41,8 +41,17 @@ int main(int argc, char** argv)
 	Label* label = new Label("nario!", 0, 0, 0xff00ff00, font);
 	layer.add(label);
 
+	nario::AudioMgr::getInstance()->get("test")->loop();
+	float gain = 0.5f;
+	nario::AudioMgr::getInstance()->get("test")->setVolume(gain);
+
 	window.keyTypeHandler = [&](int key) {
-		if (key == SDLK_0) nario::AudioMgr::getInstance()->get("test")->play();;
+		if (key == SDLK_0)
+		{
+			//gain += 0.05f;
+			//nario::AudioMgr::getInstance()->get("test")->setVolume(gain);
+			nario::AudioMgr::getInstance()->get("test")->stop();
+		}
 		//label->setText(std::to_string(key));
 	};
 
@@ -63,7 +72,6 @@ int main(int argc, char** argv)
 
 		layer.render();
 
-		AudioMgr::getInstance()->update();
 		window.update();
 
 		frames++;
