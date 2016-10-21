@@ -15,20 +15,8 @@
 }
 
 nario::Window::Window(const char* name, int width, int height)
-	:_name(name), _width(width), _height(height), _close(false), _wx(0), _wy(0)
-	,keyTypeHandler(nullptr)
-	,keyPressHandler(nullptr)
-	,mouseClickHandler(nullptr)
-	,mousePressHandler(nullptr)
+	:_name(name), _width(width), _height(height), _close(false)
 {
-	for (size_t i = 0; i < MAX_KEY; i++)
-	{
-		_keyState[i] = false;
-	}
-	for (size_t i = 0; i < MAX_BTN; i++)
-	{
-		_mouseState[i] = false;
-	}
 	if (!init())
 	{
 		ErrExit("Window init failed!");
@@ -55,23 +43,6 @@ void nario::Window::update()
 {
 	SDL_GL_SwapWindow(_window); // double swap
 
-	// key press handler
-	for (int key = 0; key < MAX_KEY; ++key)
-	{
-		if (keyPressHandler != nullptr && _keyState[key])
-		{
-			keyPressHandler(key);
-		}
-	}
-
-	for (int index = 0; index < MAX_BTN; ++index)
-	{
-		if (mousePressHandler != nullptr && _mouseState[index])
-		{
-			mousePressHandler(index);
-		}
-	}
-
 	/*SDL_GetWindowSize(_window, &_width, &_height);  // TODO : opt
 	glViewport(0, 0, _width, _height);*/
 
@@ -82,8 +53,11 @@ void nario::Window::update()
 	}
 
 	AudioMgr::getInstance()->update();
+}
 
-	eventHandler();
+void nario::Window::shutdown()
+{
+	NormalExit();
 }
 
 bool nario::Window::init()
@@ -132,63 +106,5 @@ bool nario::Window::init()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	return true;
-}
-
-void nario::Window::eventHandler()
-{
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			NormalExit();
-			break;
-		case SDL_MOUSEMOTION:
-			_wx = event.motion.x;
-			_wy = event.motion.y;
-			break;
-		case SDL_KEYDOWN:
-		{
-			SDL_Keycode key = event.key.keysym.sym;
-			if (key >= MAX_KEY) return;
-
-			// key type handler
-			if (keyTypeHandler != nullptr && !_keyState[key])
-			{
-				keyTypeHandler(key);
-			}
-			_keyState[key] = true;
-		}
-			break;
-		case SDL_KEYUP:
-		{
-			SDL_Keycode key = event.key.keysym.sym;
-			if (key >= MAX_KEY) return;
-			_keyState[key] = false;
-		}
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-		{
-			int index = (int)event.button.button;
-			if (index >= MAX_BTN) return;
-
-			// mouse click handler
-			if (mouseClickHandler != nullptr && !_mouseState[index])
-			{
-				mouseClickHandler(index);
-			}
-			_mouseState[index] = true;
-		}
-			break;
-		case SDL_MOUSEBUTTONUP:
-		{
-			int index = (int)event.button.button;
-			if (index >= MAX_BTN) return;
-			_mouseState[index] = false;
-		}
-			break;
-		}
-	}
 }
 

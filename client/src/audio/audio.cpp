@@ -55,15 +55,23 @@ void nario::Audio::loop()
 
 void nario::Audio::pause()
 {
-	if (_playing)
+	if (!_playing)
 	{
-		_playing = false;
-		if(_handle) ga_handle_stop(_handle);
+		return;
 	}
+	if (_handle)
+	{
+		ga_handle_stop(_handle);
+	}
+	_playing = false;
 }
 
 void nario::Audio::resume()
 {
+	if (_playing)
+	{
+		return;
+	}
 	if (_handle)
 	{
 		ga_handle_play(_handle);
@@ -91,6 +99,9 @@ void nario::Audio::setVolume(float volume)
 		return;
 	}
 	_volume = volume;
-	ga_handle_setParamf(_handle, GA_HANDLE_PARAM_GAIN, volume);
+	if (_handle)
+	{
+		ga_handle_setParamf(_handle, GA_HANDLE_PARAM_GAIN, volume);
+	}
 }
 

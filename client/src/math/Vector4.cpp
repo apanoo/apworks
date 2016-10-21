@@ -13,7 +13,7 @@ namespace nario {
 		return result;
 	}
 
-	float Vector4::max() const
+	float Vector4::vecMax() const
 	{
 		float maxVal = (*this)[0];
 

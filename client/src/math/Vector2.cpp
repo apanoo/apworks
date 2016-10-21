@@ -17,7 +17,7 @@ namespace nario {
 		return result;
 	}
 
-	float Vector2::max() const
+	float Vector2::vecMax() const
 	{
 		float maxVal = (*this)[0];
 

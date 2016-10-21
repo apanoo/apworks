@@ -22,7 +22,7 @@ namespace nario {
 		return result;
 	}
 
-	float Vector3::max() const
+	float Vector3::vecMax() const
 	{
 		float maxVal = (*this)[0];
 

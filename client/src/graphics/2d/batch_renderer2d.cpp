@@ -36,7 +36,7 @@ void nario::BatchRenderer2d::submit(const Renderable2d* renderable)
 		}
 		if (!found) 
 		{
-			if (_textureSlots.size() >= 32) // draw
+			if (_textureSlots.size() >= RENDERER_MAX_TEXTURES) // draw
 			{
 				end();
 				flush();
@@ -104,9 +104,7 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 		_textureSlots.push_back(font.getId());
 		ts = (float)(_textureSlots.size());
 	}
-
-	float scaleX = 960.0f / 32.0f;
-	float scaleY = 540.0f / 18.0f;
+	const Vector2& scale = font.getScale();
 
 	float x = position.getX();
 	for (unsigned int i = 0; i < text.length(); i++)
@@ -118,13 +116,13 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 			if (i > 0)
 			{
 				float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
-				x += kerning / scaleX;
+				x += kerning / scale.getX();
 			}
 
-			float x0 = x + glyph->offset_x / scaleX;
-			float y0 = position.getY() + glyph->offset_y / scaleY;
-			float x1 = x0 + glyph->width / scaleX;
-			float y1 = y0 - glyph->height / scaleY;
+			float x0 = x + glyph->offset_x / scale.getX();
+			float y0 = position.getY() + glyph->offset_y / scale.getY();
+			float x1 = x0 + glyph->width / scale.getX();
+			float y1 = y0 - glyph->height / scale.getY();
 
 			float u0 = glyph->s0;
 			float v0 = glyph->t0;
@@ -157,7 +155,7 @@ void nario::BatchRenderer2d::drawString(const std::string& text, const Vector3& 
 
 			_indexCount += 6;
 
-			x += (glyph->advance_x / scaleX);
+			x += (glyph->advance_x / scale.getX());
 		}
 	}
 }
@@ -186,6 +184,7 @@ void nario::BatchRenderer2d::flush()
 	glBindVertexArray(0);
 
 	_indexCount = 0;
+	_textureSlots.clear();
 }
 
 void nario::BatchRenderer2d::init()

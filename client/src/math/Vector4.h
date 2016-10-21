@@ -50,7 +50,7 @@ namespace nario {
 		float dot(const Vector4& r) const;
 
 		// 最大分量
-		float max() const;
+		float vecMax() const;
 
 		// 长度的平方
 		float lengthSq() const;

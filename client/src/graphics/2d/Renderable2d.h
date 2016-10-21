@@ -31,6 +31,15 @@ namespace nario {
 		inline const Vector3& getPosition() const { return _position; }
 		inline void setPosition(const Vector3& position) { _position = position; }
 
+		inline const float getPositionX() { return _position.getX(); }
+		inline void setPositionX(float x) { _position = Vector3(x, _position.getY(), _position.getZ()); }
+
+		inline const float getPositionY() { return _position.getY(); }
+		inline void setPositionY(float y) { _position = Vector3(_position.getX(), y, _position.getZ()); }
+
+		inline const float getPositionZ() { return _position.getZ(); }
+		inline void setPositionZ(float z) { _position = Vector3(_position.getX(), _position.getY(), z); }
+
 		inline const Vector2& getSize() const { return _size; }
 		inline void setSize(const Vector2& size) { _size = size; }
 

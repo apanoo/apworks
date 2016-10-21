@@ -13,9 +13,8 @@ namespace nario {
 
 		inline const std::vector<Renderable2d*>& getRenderables() const { return _renderables; }
 
-	protected:
+	public:
 		Layer(Renderer2d* renderer, Shader* shader, const Matrix4& projection);
-	protected:
 		Renderer2d* _renderer;
 		std::vector<Renderable2d*> _renderables;
 		Shader* _shader;

@@ -20,5 +20,5 @@ void main() {
     	int tid = int(fs_in.tid - 0.5);
     	texColor = fs_in.color * texture(textures[tid], fs_in.uv); // 显示文字时，文字颜色和纹理叠加
     }
-    color = texColor ;//* intensity;
+    color = texColor * intensity;
 }

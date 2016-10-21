@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef _INC_MATH
 	#include <math.h>
 #endif // !_INC_MATH
@@ -38,7 +39,7 @@ namespace nario {
 		float dot(const Vector2& r) const;
 
 		// 最大分量
-		float max() const;
+		float vecMax() const;
 
 		// 长度的平方
 		float lengthSq() const;
