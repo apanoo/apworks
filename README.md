@@ -21,3 +21,9 @@ my game development framework structure
 - Platform:
     - now: windows, linux, osx
     - <b>TODO</b>: android, iphone
+
+- Next step:
+	- Clean project, optimize the renderer
+	- animation
+	- physics
+	- 3D
