@@ -10,9 +10,10 @@ nario::Layer::~Layer()
 	}
 }
 
-void nario::Layer::add(Renderable2d* renderable)
+nario::Renderable2d* nario::Layer::add(Renderable2d* renderable)
 {
 	_renderables.push_back(renderable);
+	return renderable;
 }
 
 void nario::Layer::render()

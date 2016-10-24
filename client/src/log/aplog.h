@@ -12,7 +12,7 @@ namespace nario {
 #define fg_intensity FOREGROUND_INTENSITY
 #define fg_yellow (FOREGROUND_RED | FOREGROUND_GREEN)
 #define fg_default (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
-
+	// Why aplog should include before freeimage.h?
 	class aplog
 	{
 	public:

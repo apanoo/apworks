@@ -6,7 +6,7 @@ namespace nario {
 	class ImageUtils
 	{
 	public:
-		static BYTE* loadImage(const char* filename, GLsizei* width, GLsizei* height)
+		static BYTE* loadImage(const char* filename, GLsizei* width, GLsizei* height, GLsizei* bits)
 		{
 			char path[256];
 			sprintf(path, "../../res/%s", filename);
@@ -43,12 +43,12 @@ namespace nario {
 			//get the image width and height
 			*width = FreeImage_GetWidth(dib);
 			*height = FreeImage_GetHeight(dib);
-			int bits = FreeImage_GetBPP(dib);
+			*bits = FreeImage_GetBPP(dib);
 
 			//if this somehow one of these failed (they shouldn't), return failure
 			if ((pixels == 0) || (width == 0) || (height == 0))
 				return nullptr;
-			int size = (*width) * (*height) * (bits / 8);
+			int size = (*width) * (*height) * (*bits / 8);
 			BYTE* result = new BYTE[size];
 			memcpy(result, pixels, size);
 			FreeImage_Unload(dib);

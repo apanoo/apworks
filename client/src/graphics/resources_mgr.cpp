@@ -9,9 +9,9 @@ namespace nario {
 		return FileUtils::readFile(filename);
 	}
 
-	BYTE* ResourcesMgr::loadImage(const char* filename, GLsizei* width, GLsizei* height)
+	BYTE* ResourcesMgr::loadImage(const char* filename, GLsizei* width, GLsizei* height, GLsizei* bits)
 	{
-		return ImageUtils::loadImage(filename, width, height);
+		return ImageUtils::loadImage(filename, width, height, bits);
 	}
 
 	void ResourcesMgr::init()

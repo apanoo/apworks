@@ -4,6 +4,7 @@ nario::BatchRenderer2d::~BatchRenderer2d()
 {
 	delete _IBO;
 	glDeleteBuffers(1, &_VBO);
+	glDeleteVertexArrays(1, &_VAO);
 }
 
 // bind vbo and map buffer

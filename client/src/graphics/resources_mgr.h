@@ -17,7 +17,7 @@ namespace nario {
 			return _instance;
 		}
 		std::string loadText(const char* filename);
-		BYTE* loadImage(const char* filename, GLsizei* width, GLsizei* height);
+		BYTE* loadImage(const char* filename, GLsizei* width, GLsizei* height, GLsizei* bits);
 
 	private:
 		static void init();

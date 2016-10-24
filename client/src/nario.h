@@ -6,7 +6,9 @@
 #include "utils/file_utils.h"
 
 #include "graphics/window.h"
-#include "graphics/shader.h"
+#include "graphics/shader/shader.h"
+#include "graphics/shader/shader_factory.h"
+#include "graphics/texture.h"
 #include "graphics/buffer/vertex_array.h"
 #include "graphics/buffer/index_buffer.h"
 #include "graphics/2d/renderer2d.h"
@@ -36,6 +38,7 @@ namespace nario {
 
 		inline int getMouseX() const { return _mx; }
 		inline int getMouseY() const { return _my; }
+		inline const Vector2& getMouse() const { return Vector2((float)_mx, (float)_my); }
 
 	protected:
 		Nario() 

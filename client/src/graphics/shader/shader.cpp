@@ -4,9 +4,21 @@
 #include <vector>
 
 nario::Shader::Shader(const char* vertPath, const char* fragPath)
-	:_vertPath(vertPath), _fragPath(fragPath)
+	:_name(vertPath), _vertPath(vertPath), _fragPath(fragPath)
 {
-	_shaderId = load();
+	// read shader file
+	std::string vertTm = FileUtils::readFile(_vertPath);
+	std::string fragTm = FileUtils::readFile(_fragPath);
+	_vertSrc = vertTm.c_str();
+	_fragSrc = fragTm.c_str();
+
+	_shaderId = load(_vertSrc, _fragSrc);
+}
+
+nario::Shader::Shader(const char* name, const char* vertSrc, const char* fragSrc)
+	: _name(name), _vertSrc(vertSrc), _fragSrc(fragSrc)
+{
+	_shaderId = load(_vertSrc, _fragSrc);
 }
 
 nario::Shader::~Shader()
@@ -70,25 +82,35 @@ void nario::Shader::setUniformMat4(const GLchar* name, const Matrix4& matrix)
 	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
+nario::Shader* nario::Shader::shaderFromFile(const char* vertPath, const char* fragPath)
+{
+	return new Shader(vertPath, fragPath);
+}
+
+nario::Shader* nario::Shader::shaderFromSource(const char* vertSrc, const char* fragSrc)
+{
+	return new Shader(vertSrc, fragSrc);
+}
+
+nario::Shader* nario::Shader::shaderFromSource(const char* name, const char* vertSrc, const char* fragSrc)
+{
+	return new Shader(name, vertSrc, fragSrc);
+
+}
+
 /**
 * load shader
 */
-GLuint nario::Shader::load()
+GLuint nario::Shader::load(const char* vertSrc, const char* fragSrc)
 {
 	GLuint program = glCreateProgram();
 
 	// create shader
 	GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
-
-	// read shader file
-	std::string vertTm = FileUtils::readFile(_vertPath);
-	std::string fragTm = FileUtils::readFile(_fragPath);
-	const char* vertSource = vertTm.c_str();
-	const char* fragmentSource = fragTm.c_str();
 	
 	// bind shader source
-	glShaderSource(vertex, 1, &vertSource, NULL);
+	glShaderSource(vertex, 1, &_vertSrc, NULL);
 	
 	// compile shader
 	glCompileShader(vertex);
@@ -109,7 +131,7 @@ GLuint nario::Shader::load()
 	}
 
 	// same as vert
-	glShaderSource(fragment, 1, &fragmentSource, NULL);
+	glShaderSource(fragment, 1, &_fragSrc, NULL);
 	glCompileShader(fragment);
 	glGetShaderiv(fragment, GL_COMPILE_STATUS, &result);
 	if (result == GL_FALSE)

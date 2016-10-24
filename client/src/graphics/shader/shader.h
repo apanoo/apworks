@@ -7,6 +7,7 @@ namespace nario {
 	{
 	public:
 		Shader(const char* vertPath, const char* fragPath);
+		Shader(const char* name, const char* vertSrc, const char* fragSrc);
 		~Shader();
 
 		void enable() const;
@@ -24,8 +25,12 @@ namespace nario {
 		void setUniform4f(const GLchar* name, const Vector4& vector);
 		void setUniformMat4(const GLchar* name, const Matrix4& matrix);
 
+		static Shader* shaderFromFile(const char* vertPath, const char* fragPath);
+		static Shader* shaderFromSource(const char* vertSrc, const char* fragSrc);
+		static Shader* shaderFromSource(const char* name, const char* vertSrc, const char* fragSrc);
+
 	private:
-		GLuint load();
+		GLuint load(const char* vertSrc, const char* fragSrc);
 		GLuint getUniformLocation(const GLchar* name);
 
 	public:
@@ -33,5 +38,9 @@ namespace nario {
 	private:
 		const char* _vertPath;
 		const char* _fragPath;
+
+		const char* _vertSrc;
+		const char* _fragSrc;
+		const char* _name;
 	};
 }

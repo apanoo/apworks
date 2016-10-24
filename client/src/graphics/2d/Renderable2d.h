@@ -2,7 +2,7 @@
 #include "graphics/buffer/buffer.h"
 #include "graphics/buffer/index_buffer.h"
 #include "graphics/buffer/vertex_array.h"
-#include "graphics/shader.h"
+#include "graphics/shader/shader.h"
 #include <vector>
 
 #include "math/Maths.h"

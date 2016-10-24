@@ -69,14 +69,7 @@ int main(int argc, char** argv)
 
 		layer.render();
 
-#ifdef DEBUG_DRAWCALL
-		aplog::logwarning("draw call£º", BatchRenderer2d::_drawCall);
-#endif // DEBUG_DRAWCALL
-
 		window.update();
-#ifdef DEBUG_DRAWCALL
-		BatchRenderer2d::_drawCall = 0;
-#endif
 		frames++;
 		if (time.elapsed() - t > 1.0f)
 		{
@@ -116,7 +109,7 @@ public:
 		font->setScale(_window->getWidth() / 32.0f, _window->getHeight() / 18.0f);
 		label = new Label("", -15.5f, 8.0f, 0xff00ff00, font);
 
-		shader = new Shader("shaders/basic.vert", "shaders/basic.frag");
+		shader = ShaderFactory::defaultShader();
 		layer = new Layer(new BatchRenderer2d(), shader, Matrix4().orthographicMatrix(-16.0f, 16.0f, -9.0f, 9.0f, -1, 1));
 		sprite = new Sprite(0.0f, 0.0f, 4, 4, new Texture("textures/basic.png"));
 		layer->add(sprite);

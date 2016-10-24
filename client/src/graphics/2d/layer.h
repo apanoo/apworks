@@ -8,7 +8,7 @@ namespace nario {
 	{
 	public:
 		virtual ~Layer();
-		virtual void add(Renderable2d* renderable);
+		virtual Renderable2d* add(Renderable2d* renderable);
 		virtual void render();
 
 		inline const std::vector<Renderable2d*>& getRenderables() const { return _renderables; }
